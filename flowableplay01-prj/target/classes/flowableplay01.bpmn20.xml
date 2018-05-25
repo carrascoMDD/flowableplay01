@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ * flowableplay01.bpmn20.xml
+ *
+ * Created @author Antonio Carrasco Valero 201805252222
+ *
+ *
+ ***************************************************************************
+
+ Copyright 2018 Antonio Carrasco Valero
+ Setup a Flowable ( https://github.com/flowable/flowable-engine) playgroung on top of Spring.
+ 
+Licensed under the EUPL, Version 1.1 only (the "Licence");
+You may not use this work except in compliance with the
+Licence.
+You may obtain a copy of the Licence at:
+https://joinup.ec.europa.eu/software/page/eupl/licence-eupl
+Unless required by applicable law or agreed to in
+writing, software distributed under the Licence is
+distributed on an "AS IS" basis,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+express or implied.
+See the Licence for the specific language governing
+permissions and limitations under the Licence.
+ {{License2}}
+
+ {{Licensed1}}
+ {{Licensed2}}
+
+ ***************************************************************************
+ *
+ -->
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
@@ -33,7 +64,7 @@
 		</sequenceFlow>
 
 		<serviceTask id="externalSystemCall" name="Enter holidays in external system"
-			flowable:class="org.flowable.CallExternalSystemDelegate" />
+			flowable:class="org.modeldd.flowableplay01.FlowablePlay01ServiceTaskApproved01" />
 		<sequenceFlow sourceRef="externalSystemCall" targetRef="holidayApprovedTask" />
 
 		<userTask id="holidayApprovedTask" name="Holiday approved"
@@ -41,7 +72,7 @@
 		<sequenceFlow sourceRef="holidayApprovedTask" targetRef="approveEnd" />
 
 		<serviceTask id="sendRejectionMail" name="Send out rejection email"
-			flowable:class="org.flowable.SendRejectionMail" />
+			flowable:class="org.modeldd.flowableplay01.SendRejectionMail" />
 		<sequenceFlow sourceRef="sendRejectionMail" targetRef="rejectEnd" />
 
 		<endEvent id="approveEnd" />
