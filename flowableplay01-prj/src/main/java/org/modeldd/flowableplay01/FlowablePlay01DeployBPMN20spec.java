@@ -1,5 +1,5 @@
 /*
- * org.modeldd.flowableplay01.FlowablePlay01.js
+ * org.modeldd.flowableplay01.FlowablePlay01DeployBPMN20spec.java
  *
  * Created @author Antonio Carrasco Valero 201805252222
  *

@@ -1,5 +1,5 @@
 /*
- * org.modeldd.flowableplay01.FlowablePlay01RunProceessInstance01.java
+ * org.modeldd.flowableplay01.FlowablePlay01QueryTasks01.java
  *
  * Created @author Antonio Carrasco Valero 201805252222
  *
@@ -33,6 +33,7 @@ package org.modeldd.flowableplay01;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 import org.flowable.engine.ProcessEngine;
 import org.flowable.engine.ProcessEngineConfiguration;
@@ -42,8 +43,10 @@ import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.runtime.ProcessInstance;
+import org.flowable.engine.TaskService;
+import org.flowable.task.api.Task;
 
-public class FlowablePlay01RunProceessInstance01 {
+public class FlowablePlay01QueryTasks01 {
 
 	/**
 	 * @param args
@@ -62,7 +65,7 @@ public class FlowablePlay01RunProceessInstance01 {
 
 		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
 				.deploymentId(deployment.getId()).singleResult();
-		System.out.println("org.modeldd.flowableplay01.FlowablePlay01RunProceessInstance01 Found process definition : "
+		System.out.println("org.modeldd.flowableplay01.FlowablePlay01DeployBPMN20spec Found process definition : "
 				+ processDefinition.getName());
 
 		Scanner scanner = new Scanner(System.in);
@@ -78,13 +81,29 @@ public class FlowablePlay01RunProceessInstance01 {
 
 		RuntimeService runtimeService = processEngine.getRuntimeService();
 
-		System.out.println("org.modeldd.flowableplay01.FlowablePlay01RunProceessInstance01 Input process vars to instantiate process definition : "
-				+ processDefinition.getName());
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("employee", employee);
 		variables.put("nrOfHolidays", nrOfHolidays);
 		variables.put("description", description);
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("flowableplay01", variables);
+		
+		
+		System.out.println("org.modeldd.flowableplay01.FlowablePlay01DeployBPMN20spec List tasks for managers in instance(s) of process definition : "
+				+ processDefinition.getName());
+		TaskService taskService = processEngine.getTaskService();
+		List<Task> tasks = taskService.createTaskQuery().taskCandidateGroup("managers").list();
+		System.out.println("You have " + tasks.size() + " tasks:");
+		for (int i=0; i<tasks.size(); i++) {
+		  System.out.println((i+1) + ") " + tasks.get(i).getName());
+		}
+		System.out.println("You have " + tasks.size() + " tasks (detailed):");
+		for (int i=0; i<tasks.size(); i++) {
+		  Task task = tasks.get(i);
+		  Map<String, Object> processVariables = taskService.getVariables(task.getId());
+		  System.out.println( (i+1) + ") " + task.getName() + ": " + processVariables.get("employee") + " wants " +
+		      processVariables.get("nrOfHolidays") + " days of holidays.");
+		}
+		
 	}
 
 }
