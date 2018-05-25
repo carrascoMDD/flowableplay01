@@ -44,6 +44,8 @@ public class FlowablePlay01LaunchProcessEngine {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		// From FlowablePlay01LaunchProcessEngine.java
 		ProcessEngineConfiguration cfg = new StandaloneProcessEngineConfiguration()
 				.setJdbcUrl("jdbc:h2:mem:flowable;DB_CLOSE_DELAY=-1").setJdbcUsername("sa").setJdbcPassword("")
 				.setJdbcDriver("org.h2.Driver")

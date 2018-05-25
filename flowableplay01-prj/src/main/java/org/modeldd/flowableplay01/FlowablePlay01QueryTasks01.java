@@ -52,6 +52,7 @@ public class FlowablePlay01QueryTasks01 {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		// From FlowablePlay01LaunchProcessEngine.java
 		ProcessEngineConfiguration cfg = new StandaloneProcessEngineConfiguration()
 				.setJdbcUrl("jdbc:h2:mem:flowable;DB_CLOSE_DELAY=-1").setJdbcUsername("sa").setJdbcPassword("")
 				.setJdbcDriver("org.h2.Driver")
@@ -59,15 +60,19 @@ public class FlowablePlay01QueryTasks01 {
 
 		ProcessEngine processEngine = cfg.buildProcessEngine();
 
+		
+		// From FlowablePlay01DeployBPMN20spec.java
 		RepositoryService repositoryService = processEngine.getRepositoryService();
 		Deployment deployment = repositoryService.createDeployment().addClasspathResource("flowableplay01.bpmn20.xml")
 				.deploy();
 
 		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
 				.deploymentId(deployment.getId()).singleResult();
-		System.out.println("org.modeldd.flowableplay01.FlowablePlay01DeployBPMN20spec Found process definition : "
+		System.out.println("org.modeldd.flowableplay01.FlowablePlay01QueryTasks01 Found process definition : "
 				+ processDefinition.getName());
 
+		
+		// From FlowablePlay01RunProceessInstance01.java
 		Scanner scanner = new Scanner(System.in);
 
 		String employee = "";
@@ -91,14 +96,17 @@ public class FlowablePlay01QueryTasks01 {
 		}
 		RuntimeService runtimeService = processEngine.getRuntimeService();
 
+		System.out.println("org.modeldd.flowableplay01.FlowablePlay01RunProceessInstance01 Input process vars to instantiate process definition : "
+				+ processDefinition.getName());
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("employee", employee);
 		variables.put("nrOfHolidays", nrOfHolidays);
 		variables.put("description", description);
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("flowableplay01", variables);
-		if( processInstance != null){}/*CQT*/
 		
-		System.out.println("org.modeldd.flowableplay01.FlowablePlay01DeployBPMN20spec List tasks for managers in instance(s) of process definition : "
+		
+		// From FlowablePlay01QueryTasks01.java
+		System.out.println("org.modeldd.flowableplay01.FlowablePlay01QueryTasks01 List tasks for managers in instance(s) of process definition : "
 				+ processDefinition.getName());
 		TaskService taskService = processEngine.getTaskService();
 		List<Task> tasks = taskService.createTaskQuery().taskCandidateGroup("managers").list();

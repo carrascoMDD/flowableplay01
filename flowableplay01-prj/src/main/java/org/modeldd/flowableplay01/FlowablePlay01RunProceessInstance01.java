@@ -49,6 +49,8 @@ public class FlowablePlay01RunProceessInstance01 {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		// From FlowablePlay01LaunchProcessEngine.java
 		ProcessEngineConfiguration cfg = new StandaloneProcessEngineConfiguration()
 				.setJdbcUrl("jdbc:h2:mem:flowable;DB_CLOSE_DELAY=-1").setJdbcUsername("sa").setJdbcPassword("")
 				.setJdbcDriver("org.h2.Driver")
@@ -56,6 +58,8 @@ public class FlowablePlay01RunProceessInstance01 {
 
 		ProcessEngine processEngine = cfg.buildProcessEngine();
 
+		
+		// From FlowablePlay01DeployBPMN20spec.java
 		RepositoryService repositoryService = processEngine.getRepositoryService();
 		Deployment deployment = repositoryService.createDeployment().addClasspathResource("flowableplay01.bpmn20.xml")
 				.deploy();
@@ -65,6 +69,8 @@ public class FlowablePlay01RunProceessInstance01 {
 		System.out.println("org.modeldd.flowableplay01.FlowablePlay01RunProceessInstance01 Found process definition : "
 				+ processDefinition.getName());
 
+		
+		// From FlowablePlay01RunProceessInstance01.java
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("Who are you?");
