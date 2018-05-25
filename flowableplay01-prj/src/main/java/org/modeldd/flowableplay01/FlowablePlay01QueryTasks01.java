@@ -70,15 +70,25 @@ public class FlowablePlay01QueryTasks01 {
 
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("Who are you?");
-		String employee = scanner.nextLine();
-
-		System.out.println("How many holidays do you want to request?");
-		Integer nrOfHolidays = Integer.valueOf(scanner.nextLine());
-
-		System.out.println("Why do you need them?");
-		String description = scanner.nextLine();
-
+		String employee = "";
+		Integer nrOfHolidays = 0;
+		String description = "";
+		try {
+			System.out.println("Who are you?");
+			employee = scanner.nextLine();
+	
+			System.out.println("How many holidays do you want to request?");
+			nrOfHolidays = Integer.valueOf(scanner.nextLine());
+	
+			System.out.println("Why do you need them?");
+			description = scanner.nextLine();
+		}
+		finally {
+			if( !( scanner == null)) {
+				scanner.close();
+				scanner=null;
+			}
+		}
 		RuntimeService runtimeService = processEngine.getRuntimeService();
 
 		Map<String, Object> variables = new HashMap<String, Object>();
@@ -86,7 +96,7 @@ public class FlowablePlay01QueryTasks01 {
 		variables.put("nrOfHolidays", nrOfHolidays);
 		variables.put("description", description);
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("flowableplay01", variables);
-		
+		if( processInstance != null){}/*CQT*/
 		
 		System.out.println("org.modeldd.flowableplay01.FlowablePlay01DeployBPMN20spec List tasks for managers in instance(s) of process definition : "
 				+ processDefinition.getName());
