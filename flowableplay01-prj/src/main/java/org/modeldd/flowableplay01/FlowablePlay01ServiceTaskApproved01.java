@@ -38,8 +38,12 @@ public class FlowablePlay01ServiceTaskApproved01 implements JavaDelegate {
 	
 	 public void execute(DelegateExecution execution) {
 		 
-		 System.out.println("org.modeldd.flowableplay01.FlowablePlay01ServiceTaskApproved01  Calling the external system for employee "
-	            + execution.getVariable("employee"));
+		 System.out.println(
+				"\n\norg.modeldd.flowableplay01.FlowablePlay01ServiceTaskApproved01  Calling the external system for employee " +
+	            execution.getVariable("employee") +
+	            " number of days " + execution.getVariable("nrOfHolidays") + 
+	            " reason " + execution.getVariable("description") +
+	            "\n\n");
 				 
 	    }
 }
