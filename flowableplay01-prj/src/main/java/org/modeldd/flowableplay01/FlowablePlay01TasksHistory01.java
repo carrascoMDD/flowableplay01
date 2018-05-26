@@ -1,7 +1,7 @@
 /*
- * org.modeldd.flowableplay01.FlowablePlay01CompleteTask01.java
+ * org.modeldd.flowableplay01.FlowablePlay01TasksHistory01.java
  *
- * Created @author Antonio Carrasco Valero 201805252222
+ * Created @author Antonio Carrasco Valero 201805260146
  *
  *
  ***************************************************************************
@@ -45,8 +45,10 @@ import org.flowable.engine.RuntimeService;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.engine.TaskService;
 import org.flowable.task.api.Task;
+import org.flowable.engine.HistoryService;
+import org.flowable.engine.history.HistoricActivityInstance;
 
-public class FlowablePlay01CompleteTask01 {
+public class FlowablePlay01TasksHistory01 {
 
 	/**
 	 * @param args
@@ -142,6 +144,22 @@ public class FlowablePlay01CompleteTask01 {
 			  System.out.println( (i+1) + ") (After) " + task2.getName() + ": " + processVariables.get("employee") + " wants " +
 			      processVariables.get("nrOfHolidays") + " days of holidays.");
 			}
+			
+			
+			// From FlowablePlay01TasksHistory01.java
+			HistoryService historyService = processEngine.getHistoryService();
+			List<HistoricActivityInstance> activities =
+			  historyService.createHistoricActivityInstanceQuery()
+			   .processInstanceId(processInstance.getId())
+			   .finished()
+			   .orderByHistoricActivityInstanceEndTime().asc()
+			   .list();
+
+			for (HistoricActivityInstance activity : activities) {
+			  System.out.println(activity.getActivityId() + " took "
+			    + activity.getDurationInMillis() + " milliseconds");
+			}
+			
 		}
 		finally {
 			if( !( scanner == null)) {

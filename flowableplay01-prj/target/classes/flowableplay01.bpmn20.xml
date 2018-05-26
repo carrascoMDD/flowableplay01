@@ -72,7 +72,7 @@ permissions and limitations under the Licence.
 		<sequenceFlow sourceRef="holidayApprovedTask" targetRef="approveEnd" />
 
 		<serviceTask id="sendRejectionMail" name="Send out rejection email"
-			flowable:class="org.modeldd.flowableplay01.SendRejectionMail" />
+			flowable:class="org.modeldd.flowableplay01.SendRejectionEmail01" />
 		<sequenceFlow sourceRef="sendRejectionMail" targetRef="rejectEnd" />
 
 		<endEvent id="approveEnd" />

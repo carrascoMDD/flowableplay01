@@ -1,5 +1,5 @@
 /*
- * org.modeldd.flowableplay01.FlowablePlay01ServiceTaskApproved01.java
+ * org.modeldd.flowableplay01.SendRejectionEmail01.java
  *
  * Created @author Antonio Carrasco Valero 201805252222
  *
@@ -34,12 +34,12 @@ package org.modeldd.flowableplay01;
 import org.flowable.engine.delegate.JavaDelegate;
 import org.flowable.engine.delegate.DelegateExecution;
 
-public class FlowablePlay01ServiceTaskApproved01 implements JavaDelegate {
+public class SendRejectionEmail01 implements JavaDelegate {
 	
 	 public void execute(DelegateExecution execution) {
 		 
 		 System.out.println(
-				"\n\norg.modeldd.flowableplay01.FlowablePlay01ServiceTaskApproved01  Calling the external system for employee " +
+				"\n\norg.modeldd.flowableplay01.SendRejectionEmail01  Sending email to employee " +
 	            execution.getVariable("employee") +
 	            " number of days " + execution.getVariable("nrOfHolidays") + 
 	            " reason " + execution.getVariable("description") +
