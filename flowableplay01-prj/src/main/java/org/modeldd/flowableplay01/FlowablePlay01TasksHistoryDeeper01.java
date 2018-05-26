@@ -47,8 +47,11 @@ import org.flowable.engine.TaskService;
 import org.flowable.task.api.Task;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.history.HistoricActivityInstance;
+import org.flowable.engine.history.HistoricDetail;
+import org.flowable.engine.history.HistoricVariableUpdate;
+import org.flowable.variable.api.history.HistoricVariableInstance;
 
-public class FlowablePlay01TasksHistory01 {
+public class FlowablePlay01TasksHistoryDeeper01 {
 
 	/**
 	 * @param args
@@ -158,8 +161,60 @@ public class FlowablePlay01TasksHistory01 {
 			for (HistoricActivityInstance activity : activities) {
 			  System.out.println(activity.getActivityId() + " took "
 			    + activity.getDurationInMillis() + " milliseconds");
-			}			
+			}
 			
+
+			/* Dig deeper in details
+			 * as i.e. https://github.com/flowable/flowable-engine/blob/master/modules/flowable-engine/src/test/java/org/flowable/standalone/history/FullHistoryTest.java
+			 * https://www.flowable.org/docs/javadocs/org/flowable/engine/history/HistoricDetail.html
+			 */
+	        HistoricActivityInstance historicStartEvent = historyService.createHistoricActivityInstanceQuery()
+	        		.processInstanceId(processInstance.getId()).activityId("startEvent").singleResult();
+	        System.out.println( 
+	        		"processDefinitionId=" + historicStartEvent.getProcessDefinitionId() + " " + 
+        			"processInstanceId=" + historicStartEvent.getProcessInstanceId() + " " + 
+        			"activityId=" + historicStartEvent.getActivityId() + " " + 
+	        		"activityType=" + historicStartEvent.getActivityType() + " " + 
+	        		"historicActivityInstance_id=" + historicStartEvent.getId() + " " + 
+	        		"executionId=" + historicStartEvent.getExecutionId() + " " + 
+        			"durationInMillis=" + historicStartEvent.getDurationInMillis());
+	        
+	        
+	        List<HistoricVariableInstance> historicVariableInstances = historyService.createHistoricVariableInstanceQuery()
+	        		.orderByVariableName().asc().list();
+
+	        System.out.println( "num historicVariableInstances=" + historicVariableInstances.size());
+	        
+	        for (HistoricVariableInstance aHistoricVariableInstance : historicVariableInstances) {
+        		String aValueStr = "";
+        		Object aValue = aHistoricVariableInstance.getValue();
+        		switch( aHistoricVariableInstance.getVariableTypeName()) {
+        			case "boolean":
+        				aValueStr = aValue.toString();
+        				break;
+        				
+        			case "integer":
+        				aValueStr = aValue.toString();
+        				break;
+        				
+        			case "string":
+        				aValueStr = aValue.toString();
+        				break;
+        				
+    				default:
+    					aValueStr = aValue.toString();
+        				break;
+        		}
+        			
+	        	System.out.println( 
+	 	        		"id=" + aHistoricVariableInstance.getId() + " " + 
+	         			"processInstanceId=" + aHistoricVariableInstance.getProcessInstanceId() + " " + 
+	         			"taskId=" + aHistoricVariableInstance.getTaskId() + " " + 
+	 	        		"variable name=" + aHistoricVariableInstance.getVariableName() + " " + 
+	 	        		"variable type name=" + aHistoricVariableInstance.getVariableTypeName() + " " + 
+	 	        		"value=" + aValueStr);
+			 }	        
+	        
 		}
 		finally {
 			if( !( scanner == null)) {
