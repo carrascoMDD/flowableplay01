@@ -1,7 +1,7 @@
 /*
- * org.modeldd.flowableplay01.FlowablePlay01TasksHistory01.java
+ * org.modeldd.flowableplay01.FlowablePlay01TasksHistoryDeeper01.java
  *
- * Created @author Antonio Carrasco Valero 201805260146
+ * Created @author Antonio Carrasco Valero 201805260156
  *
  *
  ***************************************************************************
@@ -73,7 +73,7 @@ public class FlowablePlay01TasksHistoryDeeper01 {
 
 		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
 				.deploymentId(deployment.getId()).singleResult();
-		System.out.println("org.modeldd.flowableplay01.FlowablePlay01CompleteTask01 Found process definition : "
+		System.out.println("org.modeldd.flowableplay01.FlowablePlay01TasksHistoryDeeper01 Found process definition : "
 				+ processDefinition.getName());
 
 		// From FlowablePlay01RunProceessInstance01.java
@@ -102,7 +102,7 @@ public class FlowablePlay01TasksHistoryDeeper01 {
 			if( processInstance != null){}/*CQT*/
 			
 			// From FlowablePlay01QueryTasks01.java
-			System.out.println("org.modeldd.flowableplay01.FlowablePlay01CompleteTask01 (Before) List tasks for managers in instance(s) of process definition : "
+			System.out.println("org.modeldd.flowableplay01.FlowablePlay01TasksHistoryDeeper01 (Before) List tasks for managers in instance(s) of process definition : "
 					+ processDefinition.getName());
 			TaskService taskService = processEngine.getTaskService();
 			List<Task> tasks = taskService.createTaskQuery().taskCandidateGroup("managers").list();
@@ -137,7 +137,7 @@ public class FlowablePlay01TasksHistoryDeeper01 {
 			
 			
 			// Dump tasks available as above from FlowablePlay01QueryTasks01.java
-			System.out.println("org.modeldd.flowableplay01.FlowablePlay01CompleteTask01 (After) List tasks for managers in instance(s) of process definition : "
+			System.out.println("org.modeldd.flowableplay01.FlowablePlay01TasksHistoryDeeper01 (After) List tasks for managers in instance(s) of process definition : "
 					+ processDefinition.getName());
 			List<Task> tasks2 = taskService.createTaskQuery().taskCandidateGroup("managers").list();
 			System.out.println("You have " + tasks2.size() + " tasks (detailed):");
@@ -168,22 +168,69 @@ public class FlowablePlay01TasksHistoryDeeper01 {
 			 * as i.e. https://github.com/flowable/flowable-engine/blob/master/modules/flowable-engine/src/test/java/org/flowable/standalone/history/FullHistoryTest.java
 			 * https://www.flowable.org/docs/javadocs/org/flowable/engine/history/HistoricDetail.html
 			 */
+	        System.out.println( "\n\norg.modeldd.flowableplay01.FlowablePlay01TasksHistoryDeeper01 each HistoricActivityInstance");
+
 	        HistoricActivityInstance historicStartEvent = historyService.createHistoricActivityInstanceQuery()
 	        		.processInstanceId(processInstance.getId()).activityId("startEvent").singleResult();
-	        System.out.println( 
+	        System.out.println( "\n\n" + 
 	        		"processDefinitionId=" + historicStartEvent.getProcessDefinitionId() + " " + 
         			"processInstanceId=" + historicStartEvent.getProcessInstanceId() + " " + 
         			"activityId=" + historicStartEvent.getActivityId() + " " + 
 	        		"activityType=" + historicStartEvent.getActivityType() + " " + 
 	        		"historicActivityInstance_id=" + historicStartEvent.getId() + " " + 
 	        		"executionId=" + historicStartEvent.getExecutionId() + " " + 
-        			"durationInMillis=" + historicStartEvent.getDurationInMillis());
+        			"durationInMillis=" + historicStartEvent.getDurationInMillis() + "\n\n");
+	        
+	        HistoricActivityInstance historicApproveTask = historyService.createHistoricActivityInstanceQuery()
+	        		.processInstanceId(processInstance.getId()).activityId("approveTask").singleResult();
+	        System.out.println( "\n\n" + 
+	        		"processDefinitionId=" + historicApproveTask.getProcessDefinitionId() + " " + 
+        			"processInstanceId=" + historicApproveTask.getProcessInstanceId() + " " + 
+        			"activityId=" + historicApproveTask.getActivityId() + " " + 
+	        		"activityType=" + historicApproveTask.getActivityType() + " " + 
+	        		"historicActivityInstance_id=" + historicApproveTask.getId() + " " + 
+	        		"executionId=" + historicApproveTask.getExecutionId() + " " + 
+        			"durationInMillis=" + historicApproveTask.getDurationInMillis() + "\n\n");
+	        
+	        HistoricActivityInstance historicDecision = historyService.createHistoricActivityInstanceQuery()
+	        		.processInstanceId(processInstance.getId()).activityId("decision").singleResult();
+	        System.out.println( "\n\n" + 
+	        		"processDefinitionId=" + historicDecision.getProcessDefinitionId() + " " + 
+        			"processInstanceId=" + historicDecision.getProcessInstanceId() + " " + 
+        			"activityId=" + historicDecision.getActivityId() + " " + 
+	        		"activityType=" + historicDecision.getActivityType() + " " + 
+	        		"historicActivityInstance_id=" + historicDecision.getId() + " " + 
+	        		"executionId=" + historicDecision.getExecutionId() + " " + 
+        			"durationInMillis=" + historicDecision.getDurationInMillis() + "\n\n");
+
+	        HistoricActivityInstance historicExternalSystemCall = historyService.createHistoricActivityInstanceQuery()
+	        		.processInstanceId(processInstance.getId()).activityId("externalSystemCall").singleResult();
+	        System.out.println( "\n\n" + 
+	        		"processDefinitionId=" + historicExternalSystemCall.getProcessDefinitionId() + " " + 
+        			"processInstanceId=" + historicExternalSystemCall.getProcessInstanceId() + " " + 
+        			"activityId=" + historicExternalSystemCall.getActivityId() + " " + 
+	        		"activityType=" + historicExternalSystemCall.getActivityType() + " " + 
+	        		"historicActivityInstance_id=" + historicExternalSystemCall.getId() + " " + 
+	        		"executionId=" + historicExternalSystemCall.getExecutionId() + " " + 
+        			"durationInMillis=" + historicExternalSystemCall.getDurationInMillis() + "\n\n");
+
+	        HistoricActivityInstance historicHolidayApprovedTask = historyService.createHistoricActivityInstanceQuery()
+	        		.processInstanceId(processInstance.getId()).activityId("holidayApprovedTask").singleResult();
+	        System.out.println( "\n\n" + 
+	        		"processDefinitionId=" + historicHolidayApprovedTask.getProcessDefinitionId() + " " + 
+        			"processInstanceId=" + historicHolidayApprovedTask.getProcessInstanceId() + " " + 
+        			"activityId=" + historicHolidayApprovedTask.getActivityId() + " " + 
+	        		"activityType=" + historicHolidayApprovedTask.getActivityType() + " " + 
+	        		"historicActivityInstance_id=" + historicHolidayApprovedTask.getId() + " " + 
+	        		"executionId=" + historicHolidayApprovedTask.getExecutionId() + " " + 
+        			"durationInMillis=" + historicHolidayApprovedTask.getDurationInMillis() + "\n\n");
 	        
 	        
 	        List<HistoricVariableInstance> historicVariableInstances = historyService.createHistoricVariableInstanceQuery()
 	        		.orderByVariableName().asc().list();
 
-	        System.out.println( "num historicVariableInstances=" + historicVariableInstances.size());
+	        System.out.println( "\n\n" + "org.modeldd.flowableplay01.FlowablePlay01TasksHistoryDeeper01 " +
+	        		"num historicVariableInstances=" + historicVariableInstances.size());
 	        
 	        for (HistoricVariableInstance aHistoricVariableInstance : historicVariableInstances) {
         		String aValueStr = "";
@@ -206,15 +253,15 @@ public class FlowablePlay01TasksHistoryDeeper01 {
         				break;
         		}
         			
-	        	System.out.println( 
+	        	System.out.println( "\n\n" + 
 	 	        		"id=" + aHistoricVariableInstance.getId() + " " + 
 	         			"processInstanceId=" + aHistoricVariableInstance.getProcessInstanceId() + " " + 
 	         			"taskId=" + aHistoricVariableInstance.getTaskId() + " " + 
 	 	        		"variable name=" + aHistoricVariableInstance.getVariableName() + " " + 
 	 	        		"variable type name=" + aHistoricVariableInstance.getVariableTypeName() + " " + 
-	 	        		"value=" + aValueStr);
+	 	        		"value=" + aValueStr + "\n\n");
 			 }	        
-	        
+	        System.out.println( "\n\n");
 		}
 		finally {
 			if( !( scanner == null)) {
