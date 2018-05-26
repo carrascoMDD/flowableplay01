@@ -7,7 +7,7 @@
  ***************************************************************************
 
  Copyright 2018 Antonio Carrasco Valero
- Setup a Flowable ( https://github.com/flowable/flowable-engine) playgroung on top of Spring.
+ Setup a Flowable ( https://github.com/flowable/flowable-engine) playground as standalone Java application.
  
 Licensed under the EUPL, Version 1.1 only (the "Licence");
 You may not use this work except in compliance with the

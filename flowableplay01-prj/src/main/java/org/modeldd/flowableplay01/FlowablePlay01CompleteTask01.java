@@ -7,7 +7,7 @@
  ***************************************************************************
 
  Copyright 2018 Antonio Carrasco Valero
- Setup a Flowable ( https://github.com/flowable/flowable-engine) playgroung on top of Spring.
+ Setup a Flowable ( https://github.com/flowable/flowable-engine) playground as standalone Java application.
  
 Licensed under the EUPL, Version 1.1 only (the "Licence");
 You may not use this work except in compliance with the
@@ -139,7 +139,7 @@ public class FlowablePlay01CompleteTask01 {
 			for (int i=0; i<tasks2.size(); i++) {
 			  Task task2 = tasks2.get(i);
 			  Map<String, Object> processVariables2 = taskService.getVariables(task2.getId());
-			  System.out.println( (i+1) + ") (After) " + task2.getName() + ": " + processVariables.get("employee") + " wants " +
+			  System.out.println( (i+1) + ") (After) " + task2.getName() + ": " + processVariables2.get("employee") + " wants " +
 			      processVariables.get("nrOfHolidays") + " days of holidays.");
 			}
 		}
